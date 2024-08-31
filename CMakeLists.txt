@@ -1,14 +1,16 @@
 cmake_minimum_required(VERSION 3.28)
-project(rsdk-example VERSION 0.0.1
-                 DESCRIPTION "rangers-sdk example"
+project(hems-easter-egg VERSION 0.0.1
+                 DESCRIPTION "HEMS Easter Egg - SHC Version"
                  LANGUAGES CXX)
 
 set(PROJECT_AUTHOR "angryzor")
-set(PROJECT_LONG_DESCRIPTION "rangers-sdk example")
+set(PROJECT_LONG_DESCRIPTION "HEMS Easter Egg - SHC Version")
 set(PROJECT_COPYRIGHT "Copyright (c) 2024 angryzor - Licensed under GPL3")
 set(PROJECT_AUTHOR_URL "https://github.com/angryzor")
-set(PROJECT_UPDATE_SERVER "https://raw.githubusercontent.com/angryzor/hmm-update-server/main/sonic-frontiers/rsdk-example/")
+set(PROJECT_UPDATE_SERVER "https://raw.githubusercontent.com/angryzor/hmm-update-server/main/sonic-frontiers/hems-easter-egg/")
 string(TIMESTAMP PROJECT_BUILD_DATE "%Y-%m-%d")
+
+set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>")
 
 set(GAME_FOLDER "C:\\Program Files (x86)\\Steam\\steamapps\\common\\SonicFrontiers" CACHE STRING "The location of your game folder.")
 cmake_path(SET GAME_FOLDER_NORMALIZED NORMALIZE ${GAME_FOLDER})
@@ -25,8 +27,8 @@ add_subdirectory(vendor EXCLUDE_FROM_ALL)
 add_subdirectory(${RANGERS_SDK_PATH} rangers-sdk EXCLUDE_FROM_ALL)
 
 add_library(mod SHARED)
-target_compile_features(mod PRIVATE cxx_std_17)
-target_compile_options(mod PRIVATE $<$<CONFIG:Debug>:/ZI>)
+target_compile_features(mod PRIVATE cxx_std_20)
+target_compile_options(mod PRIVATE /permissive-)
 target_compile_definitions(mod
     PRIVATE
         PROJECT_BINARY_FILENAME=$<TARGET_FILE_NAME:mod>
@@ -50,7 +52,7 @@ set_target_properties(mod
         VS_DEBUGGER_WORKING_DIRECTORY ${GAME_FOLDER_NORMALIZED}
 )
 
-foreach(LIB rangers-sdk detours)
+foreach(LIB rangers-sdk detours midifile)
     target_link_libraries(mod PRIVATE ${LIB})
 endforeach()
 

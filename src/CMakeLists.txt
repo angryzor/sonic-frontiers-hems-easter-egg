@@ -7,7 +7,33 @@ target_sources(mod
         version.rc
         DllMain.cpp
         Mod.cpp
+        utilities/math/MathUtils.cpp
+        the-surprise/ResMidiFile.cpp
+        the-surprise/ObjFireworksSpectacle.cpp
+        the-surprise/ObjHEMSMember.cpp
+        the-surprise/ObjModScreenshot.cpp
+        the-surprise/SpectacleSignalId.cpp
+        the-surprise/spectacle-responders/ObjSpectacleEffectEmitter.cpp
+        the-surprise/spectacle-responders/ObjSpectacleObjectStatusController.cpp
+        the-surprise/spectacle-responders/ObjSpectacleLaserProjector.cpp
+        the-surprise/spectacle-responders/ObjModScreenshotSource.cpp
+        the-surprise/SurpriseService.cpp
+        the-surprise/TheSurprise.cpp
     PRIVATE FILE_SET HEADERS FILES
         Pch.h
         utilities/Helpers.h
+        utilities/math/MathUtils.h
+        the-surprise/MidiMessages.h
+        the-surprise/ResMidiFile.h
+        the-surprise/Members.h
+        the-surprise/ObjFireworksSpectacle.h
+        the-surprise/ObjHEMSMember.h
+        the-surprise/ObjModScreenshot.h
+        the-surprise/SpectacleSignalId.h
+        the-surprise/spectacle-responders/ObjSpectacleEffectEmitter.h
+        the-surprise/spectacle-responders/ObjSpectacleObjectStatusController.h
+        the-surprise/spectacle-responders/ObjSpectacleLaserProjector.h
+        the-surprise/spectacle-responders/ObjModScreenshotSource.h
+        the-surprise/SurpriseService.h
+        the-surprise/TheSurprise.h
 )
