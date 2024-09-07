@@ -170,7 +170,6 @@ GameObject* ObjSpectacleEffectEmitter::Create(csl::fnd::IAllocator* allocator) {
 
 const hh::fnd::RflClassMember::Value ObjSpectacleEffectEmitter::attributes[1]{
     { "category", hh::fnd::RflClassMember::Type::TYPE_CSTRING, "HEMS" },
-    //{ "spawntype", hh::fnd::RflClassMember::Type::TYPE_CSTRING, "ETERNAL" },
 };
 
 const GameObjectClass ObjSpectacleEffectEmitter::gameObjectClass{

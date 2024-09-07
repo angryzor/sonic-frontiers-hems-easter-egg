@@ -42,6 +42,8 @@ public:
     virtual void Update(hh::fnd::UpdatingPhase phase, const hh::fnd::SUpdateInfo& updateInfo) override;
 
     void SetupLaserFrames();
+    void EnableLasers();
+    void DisableLasers();
 
     static const char* category;
     static const hh::fnd::RflClassMember::Value attributes[1];

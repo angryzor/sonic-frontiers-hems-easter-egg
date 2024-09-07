@@ -87,21 +87,11 @@ bool ObjSpectacleLaserProjector::ProcessMessage(Message& message) {
         return true;
     }
     case SPECTACLE_MIDI_NOTE_ON: {
-        auto* worldData = GetWorldDataByClass<ObjSpectacleLaserProjectorSpawner>();
-        auto* gocEffect = GetComponent<GOCEffect>();
-
-        for (auto& laserFrame : laserFrames) {
-            EffectTransFrameCreateInfo eci{ worldData->effectName };
-            eci.unk1a = true;
-            eci.transInfo.frame = laserFrame;
-            eci.transInfo.scale = true;
-            gocEffect->CreateEffectEx(eci, nullptr);
-        }
-
+        EnableLasers();
         return true;
     }
     case SPECTACLE_MIDI_NOTE_OFF: {
-        GetComponent<GOCEffect>()->StopEffectAll();
+        DisableLasers();
         return true;
     }
     case SPECTACLE_MIDI_CONTROL_CHANGE: {
@@ -148,6 +138,9 @@ void ObjSpectacleLaserProjector::AddCallback(GameManager* gameManager) {
     angleControlId = worldData->angleControlId;
     if (angleControlId >= 0 && angleControlId < 128)
         gameManager->GetService<SurpriseService>()->AddControlListener(angleControlId, this);
+
+    if (statusFlags.test(StatusFlags::EDITOR))
+        EnableLasers();
 }
 
 void ObjSpectacleLaserProjector::RemoveCallback(GameManager* gameManager) {
@@ -198,13 +191,31 @@ void ObjSpectacleLaserProjector::SetupLaserFrames()
     }
 }
 
+void ObjSpectacleLaserProjector::EnableLasers()
+{
+    auto* worldData = GetWorldDataByClass<ObjSpectacleLaserProjectorSpawner>();
+    auto* gocEffect = GetComponent<GOCEffect>();
+
+    for (auto& laserFrame : laserFrames) {
+        EffectTransFrameCreateInfo eci{ worldData->effectName };
+        eci.unk1a = true;
+        eci.transInfo.frame = laserFrame;
+        eci.transInfo.scale = true;
+        gocEffect->CreateEffectEx(eci, nullptr);
+    }
+}
+
+void ObjSpectacleLaserProjector::DisableLasers()
+{
+    GetComponent<GOCEffect>()->StopEffectAll();
+}
+
 GameObject* ObjSpectacleLaserProjector::Create(csl::fnd::IAllocator* allocator) {
     return new (allocator) ObjSpectacleLaserProjector{ allocator };
 }
 
 const hh::fnd::RflClassMember::Value ObjSpectacleLaserProjector::attributes[1]{
     { "category", hh::fnd::RflClassMember::Type::TYPE_CSTRING, "HEMS" },
-    //{ "spawntype", hh::fnd::RflClassMember::Type::TYPE_CSTRING, "ETERNAL" },
 };
 
 const GameObjectClass ObjSpectacleLaserProjector::gameObjectClass{
