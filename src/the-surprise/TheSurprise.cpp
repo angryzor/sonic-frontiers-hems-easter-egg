@@ -47,6 +47,7 @@ void InitTheSurprise(ResourceLoader& resourceLoader)
 	resourceLoader.LoadResource(InplaceTempUri{ "mods/hems_easter_egg/surprising_objects.gedit" }, hh::game::ResObjectWorld::GetTypeInfo(), 0, 1, locale);
 	resourceLoader.LoadResource(InplaceTempUri{ "mods/hems_easter_egg/surprising_pous.gedit" }, hh::game::ResObjectWorld::GetTypeInfo(), 0, 1, locale);
 	resourceLoader.LoadResource(InplaceTempUri{ "mods/hems_easter_egg/surprising_text" }, hh::text::ResText::GetTypeInfo(), 0, 1, locale);
+	resourceLoader.LoadResource(InplaceTempUri{ "mods/hems_easter_egg/custom_meteorshower" }, hh::fnd::ResReflection::GetTypeInfo(), 0, 1, locale);
 
 	auto* gameManager = hh::game::GameManager::GetInstance();
 	auto* s = gameManager->CreateService<SurpriseService>(hh::fnd::MemoryRouter::GetModuleAllocator());

@@ -16,11 +16,21 @@ public:
 
 class ObjFireworksSpectacle : public hh::game::GameObject {
 public:
+    enum class State {
+        IDLE,
+        PREPARATION,
+        STARTED,
+    };
+
     hh::fnd::Reference<ResMidiFile> midiResource;
     int index{};
-    float runTime{};
+    float prepTime{};
     bool inFirstSection{ true };
-    bool started{ false };
+    State state{ State::IDLE };
+    float startTime{ 0.0f };
+    float nextMeteor{ 0.0f };
+    hh::fnd::Handle<hh::game::GameObject> meteorShowerEffect{};
+    hh::fnd::Reference<hh::fnd::ResReflectionT<heur::rfl::MeteorShowerParameter>> meteorShowerParam{};
 
     virtual bool ProcessMessage(hh::fnd::Message& message) override;
     virtual void Update(hh::fnd::UpdatingPhase phase, const hh::fnd::SUpdateInfo& updateInfo) override;
@@ -28,6 +38,8 @@ public:
     virtual void RemoveCallback(hh::game::GameManager* gameManager) override;
     void StartSpectacle();
     void EndSpectacle();
+
+    void SpawnMeteor();
 
     static const hh::fnd::RflClassMember::Value attributes[1];
 
